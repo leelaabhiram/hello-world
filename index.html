@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+	var socket= io.connect('http://localhost:8080');
+
+	socket.on('messages',function(data){
+		alert(data.hello);
+
+	socket.on("sum", function(data){
+		document.getElementById("sum").innerHTML = "Sum = "+data["sum"];
+		console.log(data["sum"])
+	});
+	});
+</script>
+</head>
+
+
+<body>
+<form class="pure-form">
+    <input id="num1" type="text"/>
+    <input id="num2" type="text"/>
+    <button type="submit"><i class="fa fa-chevron-circle-right"></i></button>
+</form>
+
+<p id="sum">Sum = </p>
+
+<script>
+
+
+var num1 = document.getElementById('num1');
+var num2 = document.getElementById('num2');
+
+document.querySelector('form.pure-form').addEventListener('submit', function (e) {
+
+    //prevent the normal submission of the form
+    e.preventDefault();
+    socket.emit('messages',{'num1':num1.value,"num2":num2.value});    
+});
+
+
+</script>
+</body>
+</html>
